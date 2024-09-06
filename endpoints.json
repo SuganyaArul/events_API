@@ -1,0 +1,131 @@
+{
+    "GET /api": {
+      "description": "serves up a json representation of all the available endpoints of the api"
+    },
+    "GET /api/events":{
+      "description": "serves an array of all events",
+    "queries": [],
+    "exampleResponse": {
+      "events": [{
+        "title":
+        "Martin Kemp Back to the 80s",
+        "date": "Fri, 6 Oct, 20:00 – Sat, 7 Oct, 01:00",
+        "address":"Freight Island, 11 Baring St, Manchester",
+        "event_location_map":
+        "https://www.google.com/maps/vt/data=-24zcPi2FFCbQBj0wvbDCbFBNK10gXm2jbTl7r9v2YJ8VLvjNSMZppcShkd_Q5SL7Zs1IXFXMaOMw0NdEFxvx3mfIG7EzZJehyagsINUV0eAVaOEPrY",
+        "description":
+        "Martin Kemp is coming to Freight Island this October with a Back to the 80s SPECIAL on Friday 6th October",
+        "ticket_info":"free",
+        "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFd4OsacnPZwvewnOgWZ5QJKmu3OZGQcz78s7M3z12uQ&s",
+        "created_by":"sarahmachin04@abc.com"
+        }]
+    }
+    },
+    "GET /api/events/:event_id":{
+      "description": "serves an particular event object",
+      "queries": ["event_id"],
+      "exampleResponse": {
+        "events": {
+          "title":
+          "Martin Kemp Back to the 80s",
+          "date": "Fri, 6 Oct, 20:00 – Sat, 7 Oct, 01:00",
+          "address":"Freight Island, 11 Baring St, Manchester",
+          "event_location_map":
+          "https://www.google.com/maps/vt/data=-24zcPi2FFCbQBj0wvbDCbFBNK10gXm2jbTl7r9v2YJ8VLvjNSMZppcShkd_Q5SL7Zs1IXFXMaOMw0NdEFxvx3mfIG7EzZJehyagsINUV0eAVaOEPrY",
+          "description":
+          "Martin Kemp is coming to Freight Island this October with a Back to the 80s SPECIAL on Friday 6th October",
+          "ticket_info":"free",
+          "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFd4OsacnPZwvewnOgWZ5QJKmu3OZGQcz78s7M3z12uQ&s",
+          "created_by":"sarahmachin04@abc.com"
+          }
+    }},
+    "GET /api/users":{
+      "description": "serves an particular user object",
+      "queries": ["email,password"],
+      "exampleResponse": {
+        "users":{
+          "email":"suganyaarul@abc.com",
+          "fullname":"Suganya Arul",
+          "username":"sugan15",
+          "password":"sugan@12"
+      }
+
+        
+    }
+  },
+  "GET /api/user/events":{
+    "description": "serves an all event created by this user ",
+    "queries": ["email"],
+    "exampleResponse": {
+      "users":[{
+        "title":
+        "Martin Kemp Back to the 80s",
+        "address":"Freight Island, 11 Baring St, Manchester",
+        "event_location_map":
+        "https://www.google.com/maps/vt/data=-24zcPi2FFCbQBj0wvbDCbFBNK10gXm2jbTl7r9v2YJ8VLvjNSMZppcShkd_Q5SL7Zs1IXFXMaOMw0NdEFxvx3mfIG7EzZJehyagsINUV0eAVaOEPrY",
+        "description":
+        "Martin Kemp is coming to Freight Island this October with a Back to the 80s SPECIAL on Friday 6th October",
+        "ticket_info":"free",
+        "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFd4OsacnPZwvewnOgWZ5QJKmu3OZGQcz78s7M3z12uQ&s",
+        "created_by":"sarahmachin04@abc.com"
+        }]
+
+      
+  }
+},
+"POST /api/user":{
+    "description": "serves with user object which we inserted ",
+    "queries": [],
+    "body":{
+      "email":"sakshisarav@abc.com",
+      "fullname":"Sakshi Sarav",
+      "username":"sakshi03",
+      "password":"saksar@03"
+  },
+    "exampleResponse": {
+      "users":{
+        "email":"sakshisarav@abc.com",
+        "fullname":"Sakshi Sarav",
+        "username":"sakshi03",
+        "password":"saksar@03"
+      }
+    }
+},
+"POST /api/event":{
+  "description": "serves with event object which we inserted ",
+  "queries": [],
+  "body":{
+    "title":
+    "Martin Kemp Back to the 80s",
+    "date": "Fri, 6 Oct, 20:00 – Sat, 7 Oct, 01:00",
+    "address":"Freight Island, 11 Baring St, Manchester",
+    "event_location_map":
+    "https://www.google.com/maps/vt/data=-24zcPi2FFCbQBj0wvbDCbFBNK10gXm2jbTl7r9v2YJ8VLvjNSMZppcShkd_Q5SL7Zs1IXFXMaOMw0NdEFxvx3mfIG7EzZJehyagsINUV0eAVaOEPrY",
+    "description":
+    "Martin Kemp is coming to Freight Island this October with a Back to the 80s SPECIAL on Friday 6th October",
+    "ticket_info":"free",
+    "image":
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFd4OsacnPZwvewnOgWZ5QJKmu3OZGQcz78s7M3z12uQ&s",
+    "created_by":"sarahmachin04@abc.com"
+},
+  "exampleResponse": {
+    "event":{
+      "title":
+          "Martin Kemp Back to the 80s",
+          "date": "Fri, 6 Oct, 20:00 – Sat, 7 Oct, 01:00",
+          "address":"Freight Island, 11 Baring St, Manchester",
+          "event_location_map":
+          "https://www.google.com/maps/vt/data=-24zcPi2FFCbQBj0wvbDCbFBNK10gXm2jbTl7r9v2YJ8VLvjNSMZppcShkd_Q5SL7Zs1IXFXMaOMw0NdEFxvx3mfIG7EzZJehyagsINUV0eAVaOEPrY",
+          "description":
+          "Martin Kemp is coming to Freight Island this October with a Back to the 80s SPECIAL on Friday 6th October",
+          "ticket_info":"free",
+          "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFd4OsacnPZwvewnOgWZ5QJKmu3OZGQcz78s7M3z12uQ&s",
+          "created_by":"sarahmachin04@abc.com"
+    }
+  }
+}
+}
