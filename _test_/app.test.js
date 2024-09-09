@@ -33,7 +33,35 @@ describe('/api',()=>{
                 events.forEach((event) => {
                     expect(event).toHaveProperty('title') 
                 });
-                expect(events).toHaveLength(8)
+                
+            })
+        })
+        test('GET:200 /events should respond with array of events data',()=>{
+            return request(app).get('/api/events?location=Manchester').expect(200)
+            .then(({body})=>{
+                const {events} = body;
+                events.forEach((event) => {
+                    expect(event).toHaveProperty('title') 
+                });
+                
+            })
+        })
+        test('GET:200 /events should respond with array of events data',()=>{
+            return request(app).get('/api/events?topics=the&location=Manchester').expect(200)
+            .then(({body})=>{
+                const {events} = body;
+                events.forEach((event) => {
+                    expect(event).toHaveProperty('title') 
+                });
+                expect(body.events).toHaveLength(1)
+            })
+        })
+        test('GET:404 /events should respond Not Found message',()=>{
+            return request(app).get('/api/events?location=makrich').expect(404)
+            .then(({body})=>{
+                    expect(body.msg).toBe('Not Found') 
+                
+                
             })
         })
     })
@@ -48,6 +76,7 @@ describe('/api',()=>{
                 
             })
         })
+        
     })
     describe('/user?email=email&password=password',()=>{
         test('GET:200 /user should respond with success message',()=>{

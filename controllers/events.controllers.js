@@ -11,7 +11,8 @@ exports.getEndpoints=(req,res,next)=>{
 }
 
 exports.getEvents=(req,res,next)=>{
-    fetchAllEvents().then((events)=>{
+    const {topics,location} =req.query;
+    fetchAllEvents(topics,location).then((events)=>{
         return res.status(200).send({events});
     })
     .catch((err)=>{
