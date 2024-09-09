@@ -10,10 +10,25 @@ exports.fetchAllEndpoints=()=>{
    
 }
 
-exports.fetchAllEvents=()=>{
-    return db.query(`SELECT * FROM events`).then((result)=>{
-        return result.rows
-    })
+exports.fetchAllEvents=async(topics,location)=>{
+    let sqlQuery=`SELECT * FROM events`
+    if(topics && location){
+        sqlQuery+=` WHERE title LIKE '%${topics}%' AND address LIKE '%${location}%'`
+    }
+    else {
+    if(topics){
+        sqlQuery+=` WHERE title LIKE '%${topics}%'`
+    }
+    else if(location){
+        sqlQuery+=` WHERE address LIKE '%${location}%'`
+    }
+    }
+    sqlQuery+=`;`
+    const response=await db.query(sqlQuery)
+    if(response.rows.length===0){
+        return Promise.reject({msg:'Not Found'})
+    }
+         return response.rows;
     
 }
 
