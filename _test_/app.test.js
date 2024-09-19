@@ -37,17 +37,27 @@ describe('/api',()=>{
             })
         })
         test('GET:200 /events should respond with array of events data',()=>{
-            return request(app).get('/api/events?location=Manchester').expect(200)
+            return request(app).get('/api/events?location=man').expect(200)
             .then(({body})=>{
                 const {events} = body;
                 events.forEach((event) => {
                     expect(event).toHaveProperty('title') 
                 });
-                
+                expect(body.events).toHaveLength(6)
             })
         })
         test('GET:200 /events should respond with array of events data',()=>{
-            return request(app).get('/api/events?topics=the&location=Manchester').expect(200)
+            return request(app).get('/api/events?location=lon').expect(200)
+            .then(({body})=>{
+                const {events} = body;
+                events.forEach((event) => {
+                    expect(event).toHaveProperty('title') 
+                });
+                expect(body.events).toHaveLength(2)
+            })
+        })
+        test('GET:200 /events should respond with array of events data',()=>{
+            return request(app).get('/api/events?topics=the&location=manchester').expect(200)
             .then(({body})=>{
                 const {events} = body;
                 events.forEach((event) => {
