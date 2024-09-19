@@ -65,7 +65,7 @@ module.exports = [
     "Sara Pascoe",
     "date": "Sun, 8 Sept, 16:00–20:00",
     "address":
-    "Castlefield Bowl, Rice St,Manchester",
+    "Castlefield Bowl, Rice St,London",
     "link":
     "https://www.theboltonnews.co.uk/local-events/Bolton/1266832.Event.Tales_of_Bolton_Life/?_evDiscoveryPath=/event/1031870512n-stewart-lee",
     "event_location_map":
@@ -158,7 +158,7 @@ module.exports = [
     
     "Wed, 4 Sept, 19:30–23:30",
     "address":
-    "Band on the Wall, 25 Swan St,Manchester",
+    "Band on the Wall, 25 Swan St,London",
     "link":
     "https://www.theboltonnews.co.uk/local-events/Bolton/1100201.Event.Kids__Knit_Class/?_evDiscoveryPath=/event/105515449n-knower",
     "event_location_map":

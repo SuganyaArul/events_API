@@ -13,14 +13,14 @@ exports.fetchAllEndpoints=()=>{
 exports.fetchAllEvents=async(topics,location)=>{
     let sqlQuery=`SELECT * FROM events`
     if(topics && location){
-        sqlQuery+=` WHERE title LIKE '%${topics}%' AND address LIKE '%${location}%'`
+        sqlQuery+=` WHERE title ILIKE '%${topics}%' AND address ILIKE '%${location}%'`
     }
     else {
     if(topics){
-        sqlQuery+=` WHERE title LIKE '%${topics}%'`
+        sqlQuery+=` WHERE title ILIKE '%${topics}%'`
     }
     else if(location){
-        sqlQuery+=` WHERE address LIKE '%${location}%'`
+        sqlQuery+=` WHERE address ILIKE '%${location}%'`
     }
     }
     sqlQuery+=`;`
