@@ -1,4 +1,4 @@
-const{fetchAllEndpoints,fetchAllEvents,fetchEventById,fetchUserByEmail,createEvent,createNewUser,fetchUserEvents} =require("../models/events.models")
+const{fetchAllEndpoints,fetchAllEvents,fetchEventById,fetchUserByEmail,createEvent,createNewUser,fetchUserEvents,fetchAttendees,addNewAttendee} =require("../models/events.models")
 
 
 exports.getEndpoints=(req,res,next)=>{
@@ -68,4 +68,24 @@ exports.getUserEvents=(req,res,next)=>{
     .catch((err)=>{
         next(err);
     }) 
+}
+
+exports.getAttendees=(req,res,next)=>{
+    const {event_id}=req.query;
+    fetchAttendees(event_id).then((attendees)=>{
+        return res.status(200).send({attendees})
+    })
+    .catch((err)=>{
+       next(err);
+    })
+}
+
+exports.postAttendees=(req,res,next)=>{
+    const attendee=req.body;
+    addNewAttendee(attendee).then((attendee)=>{
+        return res.status(201).send({attendee})
+    })
+    .catch((err)=>{
+        next(err);
+    })
 }

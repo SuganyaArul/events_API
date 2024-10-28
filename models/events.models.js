@@ -64,3 +64,17 @@ exports.fetchUserEvents=(email)=>{
         return rows;
     })
 }
+
+exports.fetchAttendees=(id)=>{
+    return db.query(`SELECT * FROM attendees WHERE event_id=$1;`,[id]).then(({rows})=>{
+        console.log('result',rows);
+        
+        return rows;
+    })
+}
+
+exports.addNewAttendee=(attendee)=>{
+    return db.query(`INSERT INTO attendees (firstname, lastname, email, event_id) VALUES($1,$2,$3,$4) RETURNING *;`,[attendee.firstname,attendee.lastname,attendee.email,attendee.event_id]).then(({rows})=>{
+        return rows[0]
+    })
+}

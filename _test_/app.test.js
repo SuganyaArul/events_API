@@ -210,4 +210,51 @@ describe('/api',()=>{
             })
         })
     })
+    // describe('GET /events/attendees',()=>{
+    //     test('GET: 200 should respond with array of attendees for the event',()=>{
+    //         return request(app).get('/api/events/attendees?event_id=2').expect(200).then(({body})=>{
+    //             console.log('i am success');
+                
+    //             // const {events} = body;
+    //             // events.forEach((event)=>{
+    //             //     expect(event.created_by).toBe('')
+    //             })
+    //         })
+    //     })
+
+    
+    describe('POST /events/attendees',()=>{
+        test('POST: 201 should respond with array of attendees for the event',()=>{
+            const attendee={
+                firstname:'John',
+                lastname:'louis',
+                email:'suganyaarul@abc.com',
+                event_id:4
+            }
+            return request(app).post('/api/events/attendees').send(attendee).expect(201).then(({body})=>{
+                expect(body.attendee).toMatchObject(attendee)
+            })
+        })
+        test('POST: 400 Should respond with Bad Request if attendee details not sent',()=>{
+            const attendee={
+                firstname:'John',
+                lastname:'louis',
+                email:'suganyaarul@abc.com',
+                event_id:4
+            }
+            return request(app).post('/api/events/attendees').expect(400).then(({body})=>{
+                expect(body.msg).toBe('Bad Request')
+            })
+        })
+        test('POST: 400 Should respond with Bad Request if required field not sent',()=>{
+            const attendee={
+                firstname:'John',
+                lastname:'louis',
+                event_id:4
+            }
+            return request(app).post('/api/events/attendees').expect(400).then(({body})=>{
+                expect(body.msg).toBe('Bad Request')
+            })
+        })
+    })
 })

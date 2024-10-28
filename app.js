@@ -1,7 +1,7 @@
 const express=require("express");
 const app=express();
 const cors=require('cors');
-const{getEvents,getEndpoints,getEventById,getUserDetails,postNewEvent,postNewUser,getUserEvents}=require("./controllers/events.controllers")
+const{getEvents,getEndpoints,getEventById,getUserDetails,postNewEvent,postNewUser,getUserEvents,getAttendees,postAttendees}=require("./controllers/events.controllers")
 app.use(cors());
 app.use(express.json());
 
@@ -18,6 +18,10 @@ app.post('/api/event', postNewEvent);
 app.post('/api/user', postNewUser);
 
 app.get('/api/user/events', getUserEvents);
+
+app.get('/api/events/attendees', getAttendees);
+
+app.post('/api/events/attendees', postAttendees);
 
 app.use((err,req,res,next)=>{
     if(err.msg==='No such files'||err.msg==='Not Found')

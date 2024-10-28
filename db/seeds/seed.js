@@ -2,9 +2,12 @@ const format = require('pg-format');
 const db = require('../connection');
 
 
-const seed = ({ eventsData, usersData }) => {
+const seed = ({ eventsData, usersData, attendeesData }) => {
     return db
-      .query(`DROP TABLE IF EXISTS events;`)
+      .query(`DROP TABLE IF EXISTS attendees;`)
+      .then(() => {
+        return db.query(`DROP TABLE IF EXISTS events;`);
+      })
       .then(() => {
         return db.query(`DROP TABLE IF EXISTS users;`);
       })
@@ -30,17 +33,28 @@ const seed = ({ eventsData, usersData }) => {
             venue VARCHAR,
             thumbnail VARCHAR,
             image VARCHAR,
+            capacity INT,
             created_by VARCHAR NOT NULL
         );
         `)
-        
+       
         return Promise.all([eventTablePromise, usersTablePromise]);
+      })
+      .then(()=>{
+        return db.query(`
+          CREATE TABLE attendees (
+            attendee_id SERIAL PRIMARY KEY,
+            email VARCHAR NOT NULL ,
+            firstname VARCHAR NOT NULL,
+            lastname VARCHAR NOT NULL,
+            event_id INT REFERENCES events(event_id) NOT NULL
+          );`)
       })
       .then(() => {
         //seeding data into table
         const insertEventsQueryStr = format(
-          'INSERT INTO events (title, date, address, event_location_map, description, ticket_info, venue, thumbnail, image, created_by) VALUES %L;',
-          eventsData.map(({ title, date, address, event_location_map, description, ticket_info, venue, thumbnail, image, created_by }) => [title, date, address, event_location_map, description, ticket_info, venue, thumbnail, image, created_by])
+          'INSERT INTO events (title, date, address, event_location_map, description, ticket_info, venue, thumbnail, image,capacity, created_by) VALUES %L;',
+          eventsData.map(({ title, date, address, event_location_map, description, ticket_info, venue, thumbnail, image, capacity, created_by }) => [title, date, address, event_location_map, description, ticket_info, venue, thumbnail, image, capacity, created_by])
         );
         const eventsPromise = db.query(insertEventsQueryStr);
         const insertUsersQueryStr = format(
@@ -53,7 +67,22 @@ const seed = ({ eventsData, usersData }) => {
           ])
         );
         const usersPromise = db.query(insertUsersQueryStr);
-        return Promise.all([eventsPromise,usersPromise]);
+        const insertAttendeesQueryStr = format(
+          'INSERT INTO attendees ( firstname, lastname, email, event_id) VALUES %L;',
+          attendeesData.map(({ firstname, lastname, email, event_id }) => [
+            firstname,
+            lastname,
+            email,
+            event_id
+          ])
+        );
+        const attendeesPromise = db.query(insertAttendeesQueryStr)
+        return Promise.all([eventsPromise,usersPromise,attendeesPromise]);
+    })
+    .catch((error)=>{
+      console.log(error);
+      
+      
     })
     };
 
