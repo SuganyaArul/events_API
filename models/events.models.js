@@ -48,7 +48,7 @@ exports.fetchUserByEmail=({email,password})=>{
 }
 
 exports.createEvent=(event)=>{
-    return db.query(`INSERT INTO events (title, date, address, event_location_map, description, ticket_info, venue, image, capacity, created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;`,[event.title,event.date,event.address,event.event_location_map,event.description,event.ticket_info,event.venue,event.image,event.capacity,event.created_by]).then(({rows})=>{
+    return db.query(`INSERT INTO events (title, date, address, event_location_map, description, ticket_info, venue, image, capacity, created_by) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;`,[event.title,event.date,event.address,event.event_location_map,event.description,event.ticket_info,event.venue,event.image,event.capacity,event.created_by]).then(({rows})=>{
                 return rows[0]
     })
 }
